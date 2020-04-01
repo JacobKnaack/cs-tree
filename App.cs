@@ -1,6 +1,6 @@
 using Tree;
 
-class Program
+class App
 {
   public static void Main()
   {
