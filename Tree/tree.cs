@@ -7,11 +7,11 @@ namespace Tree
   {
     public Node LeftNode;
     public Node RightNode;
-    public int value;
+    public int Value;
 
     public void display()
     {
-      Console.WriteLine(this.value);
+      Console.WriteLine(this.Value);
     }
   }
 
@@ -23,9 +23,9 @@ namespace Tree
       if (root == null)
       {
         root = new Node();
-        root.value = v;
+        root.Value = v;
       }
-      else if (v < root.value)
+      else if (v < root.Value)
       {
         root.LeftNode = insert(root.LeftNode, v);
       }
