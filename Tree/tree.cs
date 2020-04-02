@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 
 namespace Tree
 {
@@ -10,7 +11,7 @@ namespace Tree
 
     public void display()
     {
-      System.Console.WriteLine(this.value);
+      Console.WriteLine(this.value);
     }
   }
 
@@ -36,30 +37,56 @@ namespace Tree
       return this.r;
     }
 
-    public void traverse(Node root)
+    public void preOrder(Node root)
     {
       if (root == null)
       {
         return;
       }
       root.display();
-      traverse(root.RightNode);
-      traverse(root.LeftNode);
+      preOrder(root.LeftNode);
+      preOrder(root.RightNode);
     }
-    public void traverseIterativly(Node root)
-    {
-      Node current = root;
 
-      while (current != null)
+    public void postOrder(Node root)
+    {
+      if (root == null)
       {
+        return;
+      }
+      postOrder(root.LeftNode);
+      postOrder(root.RightNode);
+      root.display();
+    }
+
+    public void inOrder(Node root)
+    {
+      if (root == null)
+      {
+        return;
+      }
+      inOrder(root.LeftNode);
+      root.display();
+      inOrder(root.RightNode);
+    }
+
+    public void traverseIteratively(Node root)
+    {
+      Stack<Node> traversal = new Stack<Node>();
+      traversal.Push(root);
+
+      while (traversal.Count != 0)
+      {
+        Node current = traversal.Pop();
         current.display();
+        if (current.LeftNode != null)
+        {
+          traversal.Push(current.LeftNode);
+        }
+
         if (current.RightNode != null)
         {
-          current = current.RightNode;
-        }
-        else
-        {
-          current = current.LeftNode;
+          traversal.Push(current.RightNode);
         }
       }
     }
