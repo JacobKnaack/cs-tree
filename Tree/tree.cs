@@ -2,65 +2,81 @@ using System;
 
 namespace Tree
 {
-  public class Node
+  class Node<T>
   {
-    public Node LeftNode;
-    public Node RightNode;
-    public int value;
+    public Node<T> LeftNode { get; set; }
+    public Node<T> RightNode { get; set; }
+    public T Value { get; set; }
 
+    public Node(T value)
+    {
+      Value = value;
+    }
     public void display()
     {
-      System.Console.WriteLine(this.value);
+      Console.WriteLine(Value);
     }
   }
 
-  class BinaryTree
+  class BinaryTree<T>
   {
-    public Node r = null;
-    public Node insert(Node root, int v)
+    public Node<T> Root { get; set; }
+    public BinaryTree(T value)
+    {
+      Root = new Node<T>(value);
+    }
+
+    public Node<T> insert(Node<T> root, T value)
     {
       if (root == null)
       {
-        root = new Node();
-        root.value = v;
+        Root = new Node<T>(value);
       }
-      else if (v < root.value)
+      else if (Root.LeftNode == null)
       {
-        root.LeftNode = insert(root.LeftNode, v);
+        root.LeftNode = insert(root.LeftNode, value);
       }
       else
       {
-        root.RightNode = insert(root.RightNode, v);
+        root.RightNode = insert(root.RightNode, value);
       }
-      this.r = root;
-      return this.r;
+      Root = root;
+      return Root;
     }
 
-    public void traverse(Node root)
+    // this is preOrder {root => left => right}
+    public void traverse(Node<T> root)
     {
       if (root == null)
       {
         return;
       }
       root.display();
-      traverse(root.RightNode);
       traverse(root.LeftNode);
+      traverse(root.RightNode);
     }
-    public void traverseIterativly(Node root)
+
+    // Post order traversal
+    public void traversePost(Node<T> root)
     {
-      Node current = root;
+      if (root == null)
+      {
+        return;
+      }
+      traversePost(root.LeftNode);
+      traversePost(root.RightNode);
+      root.display();
+    }
+
+    // traversal using an iterable
+    public void traverseIteratively(Node<T> root)
+    {
+      // Need to use a data structure here that will let me reference node already visited.
+      Node<T> current = root;
 
       while (current != null)
       {
-        current.display();
-        if (current.RightNode != null)
-        {
-          current = current.RightNode;
-        }
-        else
-        {
-          current = current.LeftNode;
-        }
+        // need to set current to a left or right side node, and store visited node.
       }
     }
   }
